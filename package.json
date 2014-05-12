@@ -1,0 +1,21 @@
+{
+  "name": "simple-xlsx",
+  "description": "",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dominictarr/simple-xlsx",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/simple-xlsx.git"
+  },
+  "dependencies": {
+    "nice-xml": "~0.1.1-rc2",
+    "concat-stream": "~1.4.5",
+    "unzip": "~0.1.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "set -e; for t in test/*.js; do node $t; done"
+  },
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
+  "license": "MIT"
+}

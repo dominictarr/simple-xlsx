@@ -1,0 +1,6 @@
+# simple-xlsx
+
+
+## License
+
+MIT
