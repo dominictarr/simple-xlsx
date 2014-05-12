@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 
 var unzip  = require('unzip')
 var concat = require('concat-stream')
