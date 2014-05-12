@@ -15,6 +15,8 @@ module.exports = function (cb) {
       parseWorkshee1(worksheet1)
   }
 
+  var columns = {}
+
   function parseWorksheet1(data) {
     worksheet1 = worksheet1 || data
     if(!strings) return //we havn't parsed the Shared String Table yet...
@@ -22,12 +24,21 @@ module.exports = function (cb) {
     var table = tree.worksheet.sheetData.row.map(function (row) {
       var cells = (Array.isArray(row.c) ? row.c : [row.c])
       return cells.reduce(function (row, cell) {
-        if(cell.v)
-          row[cell.$.r] = cell.$.t == 's' ? strings[cell.v] : cell.v
+        if(cell.v) {
+          var col = /[A-Z]+/.exec(cell.$.r)[0]
+          row[col] = cell.$.t == 's' ? strings[cell.v] : cell.v
+          columns[col] = true
+        }
       return row
       }, {})
     })
-    cb(null, table)
+
+    cb(null, table.map(function (obj) {
+      var row = []
+      for(var col in columns)
+        row.push(obj[col] || null)
+      return row
+    }))
   }
 
   return unzip.Parse()
@@ -43,7 +54,7 @@ module.exports = function (cb) {
 }
 
 if(!module.parent && process.title !== 'browser') {
-  if(!process.stdin.isTTY && !fs.createReadStream(process.argv[2]))
+  if(process.stdin.isTTY)
     return console.error('USAGE: simple-xlxs < file > output.json')
   process.stdin.pipe(module.exports(function (err, table) {
     if(err) throw err
