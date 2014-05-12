@@ -12,6 +12,14 @@ fs.createReadStream('accounts.xlsx')
   })
 ```
 
+## or as command line tool
+
+Convert stdin into JSON arrays.
+
+``` js
+curl https://bestspreadsheets.com/sheet1.xlsx | simple-xlsx
+```
+
 ## how it all works.
 
 The excell spreadsheet format is a bit strange.
